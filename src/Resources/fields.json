@@ -1,0 +1,302 @@
+[
+  {
+    "Group": "finishing",
+    "Key": "enabled",
+    "Label": "enabled",
+    "Tab": "Hangerő",
+    "Kind": "bool",
+    "Min": -1000,
+    "Max": 1000,
+    "Hidden": true
+  },
+  {
+    "Group": "finishing",
+    "Key": "gainDb",
+    "Label": "Kézi erősítés (dB)",
+    "Tab": "Hangerő",
+    "Kind": "number",
+    "Min": -24,
+    "Max": 24,
+    "Hidden": false
+  },
+  {
+    "Group": "finishing",
+    "Key": "loudnessEnabled",
+    "Label": "LUFS-normalizálás bekapcsolva",
+    "Tab": "Hangerő",
+    "Kind": "bool",
+    "Min": -1000,
+    "Max": 1000,
+    "Hidden": false
+  },
+  {
+    "Group": "finishing",
+    "Key": "targetLUFS",
+    "Label": "Célhangerő (LUFS)",
+    "Tab": "Hangerő",
+    "Kind": "number",
+    "Min": -60,
+    "Max": -5,
+    "Hidden": false
+  },
+  {
+    "Group": "finishing",
+    "Key": "maxTruePeakDbTP",
+    "Label": "Csúcshatár (dBTP)",
+    "Tab": "Hangerő",
+    "Kind": "number",
+    "Min": -20,
+    "Max": -0.5,
+    "Hidden": false
+  },
+  {
+    "Group": "finishing",
+    "Key": "extraCompressionEnabled",
+    "Label": "Külön kompresszor bekapcsolva",
+    "Tab": "Külön kompresszor",
+    "Kind": "bool",
+    "Min": -1000,
+    "Max": 1000,
+    "Hidden": false
+  },
+  {
+    "Group": "finishing",
+    "Key": "compressionThresholdDbFS",
+    "Label": "Küszöb (dBFS)",
+    "Tab": "Külön kompresszor",
+    "Kind": "number",
+    "Min": -80,
+    "Max": 0,
+    "Hidden": false
+  },
+  {
+    "Group": "finishing",
+    "Key": "compressionRatio",
+    "Label": "Arány (:1)",
+    "Tab": "Külön kompresszor",
+    "Kind": "number",
+    "Min": 1,
+    "Max": 20,
+    "Hidden": false
+  },
+  {
+    "Group": "finishing",
+    "Key": "compressionKneeDb",
+    "Label": "Lágy térd (dB)",
+    "Tab": "Külön kompresszor",
+    "Kind": "number",
+    "Min": 0,
+    "Max": 24,
+    "Hidden": false
+  },
+  {
+    "Group": "finishing",
+    "Key": "compressionAttackMs",
+    "Label": "Attack (ms)",
+    "Tab": "Külön kompresszor",
+    "Kind": "number",
+    "Min": 0.1,
+    "Max": 100,
+    "Hidden": false
+  },
+  {
+    "Group": "finishing",
+    "Key": "compressionReleaseMs",
+    "Label": "Release (ms)",
+    "Tab": "Külön kompresszor",
+    "Kind": "number",
+    "Min": 5,
+    "Max": 2000,
+    "Hidden": false
+  },
+  {
+    "Group": "finishing",
+    "Key": "compressionLookaheadMs",
+    "Label": "Előretekintés (ms)",
+    "Tab": "Külön kompresszor",
+    "Kind": "number",
+    "Min": 0,
+    "Max": 50,
+    "Hidden": false
+  },
+  {
+    "Group": "silenceControl",
+    "Key": "enabled",
+    "Label": "Expander bekapcsolva",
+    "Tab": "Expander / Gate",
+    "Kind": "bool",
+    "Min": -1000,
+    "Max": 1000,
+    "Hidden": false
+  },
+  {
+    "Group": "silenceControl",
+    "Key": "gateEnabled",
+    "Label": "Gate is — hosszabb szünetekben teljes csend",
+    "Tab": "Expander / Gate",
+    "Kind": "bool",
+    "Min": -1000,
+    "Max": 1000,
+    "Hidden": false
+  },
+  {
+    "Group": "silenceControl",
+    "Key": "autoThreshold",
+    "Label": "Automatikus küszöbbecslés",
+    "Tab": "Expander / Gate",
+    "Kind": "bool",
+    "Min": -1000,
+    "Max": 1000,
+    "Hidden": false
+  },
+  {
+    "Group": "silenceControl",
+    "Key": "thresholdDbFS",
+    "Label": "Kézi RMS-küszöb (dBFS)",
+    "Tab": "Expander / Gate",
+    "Kind": "number",
+    "Min": -120,
+    "Max": -10,
+    "Hidden": false
+  },
+  {
+    "Group": "silenceControl",
+    "Key": "noiseMarginDb",
+    "Label": "Zaj feletti margó (dB)",
+    "Tab": "Expander / Gate",
+    "Kind": "number",
+    "Min": 0,
+    "Max": 18,
+    "Hidden": false
+  },
+  {
+    "Group": "silenceControl",
+    "Key": "ratio",
+    "Label": "Expander arány (:1)",
+    "Tab": "Expander / Gate",
+    "Kind": "number",
+    "Min": 1,
+    "Max": 4,
+    "Hidden": false
+  },
+  {
+    "Group": "silenceControl",
+    "Key": "rangeDb",
+    "Label": "Max. halkítás (dB)",
+    "Tab": "Expander / Gate",
+    "Kind": "number",
+    "Min": 0,
+    "Max": 30,
+    "Hidden": false
+  },
+  {
+    "Group": "silenceControl",
+    "Key": "kneeDb",
+    "Label": "Lágy térd (dB)",
+    "Tab": "Expander / Gate",
+    "Kind": "number",
+    "Min": 0,
+    "Max": 18,
+    "Hidden": false
+  },
+  {
+    "Group": "silenceControl",
+    "Key": "attackMs",
+    "Label": "Nyitás / attack (ms)",
+    "Tab": "Expander / Gate",
+    "Kind": "number",
+    "Min": 0.1,
+    "Max": 30,
+    "Hidden": false
+  },
+  {
+    "Group": "silenceControl",
+    "Key": "holdMs",
+    "Label": "Nyitva tartás / hold (ms)",
+    "Tab": "Expander / Gate",
+    "Kind": "number",
+    "Min": 50,
+    "Max": 1000,
+    "Hidden": false
+  },
+  {
+    "Group": "silenceControl",
+    "Key": "releaseMs",
+    "Label": "Zárás / release (ms)",
+    "Tab": "Expander / Gate",
+    "Kind": "number",
+    "Min": 50,
+    "Max": 2000,
+    "Hidden": false
+  },
+  {
+    "Group": "silenceControl",
+    "Key": "lookaheadMs",
+    "Label": "Előretekintés (ms)",
+    "Tab": "Expander / Gate",
+    "Kind": "number",
+    "Min": 0,
+    "Max": 30,
+    "Hidden": false
+  },
+  {
+    "Group": "silenceControl",
+    "Key": "hysteresisDb",
+    "Label": "Hiszterézis (dB)",
+    "Tab": "Expander / Gate",
+    "Kind": "number",
+    "Min": 0,
+    "Max": 12,
+    "Hidden": false
+  },
+  {
+    "Group": "silenceControl",
+    "Key": "minimumContrastDb",
+    "Label": "Min. szintkülönbség (dB)",
+    "Tab": "Expander / Gate",
+    "Kind": "number",
+    "Min": 12,
+    "Max": 40,
+    "Hidden": false
+  },
+  {
+    "Group": "noiseReduction",
+    "Key": "method",
+    "Label": "Zajszűrési mód",
+    "Tab": "Zajszűrés",
+    "Kind": "text",
+    "Min": -1000,
+    "Max": 1000,
+    "Hidden": false
+  },
+  {
+    "Group": "noiseReduction",
+    "Key": "strength",
+    "Label": "Zajcsökkentés erőssége (0–1)",
+    "Tab": "Zajszűrés",
+    "Kind": "number",
+    "Min": 0,
+    "Max": 1,
+    "Hidden": false
+  },
+  {
+    "Group": "noiseReduction",
+    "Key": "noiseSampleMs",
+    "Label": "Kezdő zajminta (ms)",
+    "Tab": "Zajszűrés",
+    "Kind": "int",
+    "Min": 100,
+    "Max": 2000,
+    "Hidden": false
+  },
+  {
+    "Group": "outputNaming",
+    "Key": "duplicateSuffix",
+    "Label": "Duplikált fájl utótagja",
+    "Tab": "Kimenet",
+    "Kind": "text",
+    "Min": -1000,
+    "Max": 1000,
+    "Hidden": false
+  }
+]

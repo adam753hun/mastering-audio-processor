@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HU: Relatív mappák ehhez az XML-hez képest. EN: Folders are relative to this XML. -->
+<publicMasteringSettings>
+  <inputDirectory>input</inputDirectory>
+  <outputDirectory>output</outputDirectory>
+  <noiseReduction>
+    <method>noisereduce_stationary</method>
+    <strength>0.6</strength>
+    <noiseSampleMs>250</noiseSampleMs>
+  </noiseReduction>
+  <finishing>
+    <loudnessEnabled>true</loudnessEnabled>
+    <targetLUFS>-23</targetLUFS>
+    <maxTruePeakDbTP>-1</maxTruePeakDbTP>
+    <extraCompressionEnabled>false</extraCompressionEnabled>
+  </finishing>
+  <silenceControl>
+    <enabled>false</enabled>
+    <gateEnabled>false</gateEnabled>
+  </silenceControl>
+  <outputNaming>
+    <duplicateSuffix>_new</duplicateSuffix>
+  </outputNaming>
+</publicMasteringSettings>

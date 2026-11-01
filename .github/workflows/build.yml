@@ -1,0 +1,38 @@
+name: Build and verify
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Build
+        run: dotnet build src/Mastering.CSharp.csproj -c Release --nologo
+      - name: Verify generated audio and GUI
+        shell: pwsh
+        run: |
+          $app = Resolve-Path src/bin/Release/net8.0-windows/MasteringAudioProcessor.exe
+          $dir = Join-Path $env:RUNNER_TEMP ('mastering-tests-' + [guid]::NewGuid().ToString('N'))
+          $report = Join-Path $env:RUNNER_TEMP 'verification.json'
+          $p = Start-Process $app -Wait -PassThru -ArgumentList @('--verify','--test-dir',('"'+$dir+'"'),'--report',('"'+$report+'"'))
+          if ($p.ExitCode -ne 0) { Get-Content $report; throw 'Verification failed' }
+          $result = Get-Content $report -Raw | ConvertFrom-Json
+          if (!$result.passed) { throw 'Missing passing verification result' }
+      - name: Publish
+        run: dotnet publish src/Mastering.CSharp.csproj -c Release --no-restore --self-contained false -o artifacts/windows
+      - name: Include licence and documentation
+        shell: pwsh
+        run: |
+          Copy-Item LICENSE,README.md,README.hu.md,CHANGELOG.md -Destination artifacts/windows
+          Copy-Item docs -Destination artifacts/windows/docs -Recurse
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MasteringAudioProcessor-windows-x64
+          path: artifacts/windows

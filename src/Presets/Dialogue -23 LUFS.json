@@ -1,0 +1,46 @@
+{
+  "format": "mastering-public-preset",
+  "schema": 1,
+  "name": "Dialogue -23 LUFS",
+  "profile": "gentle",
+  "values": {
+    "finishing": {
+      "enabled": true,
+      "gainDb": 0.0,
+      "loudnessEnabled": true,
+      "targetLUFS": -23,
+      "maxTruePeakDbTP": -1,
+      "extraCompressionEnabled": false,
+      "compressionThresholdDbFS": -28.0,
+      "compressionRatio": 3.0,
+      "compressionKneeDb": 6.0,
+      "compressionAttackMs": 3.0,
+      "compressionReleaseMs": 100.0,
+      "compressionLookaheadMs": 10.0
+    },
+    "silenceControl": {
+      "enabled": false,
+      "gateEnabled": false,
+      "autoThreshold": true,
+      "thresholdDbFS": -60.0,
+      "noiseMarginDb": 6.0,
+      "ratio": 1.5,
+      "rangeDb": 12.0,
+      "kneeDb": 6.0,
+      "attackMs": 3.0,
+      "holdMs": 200.0,
+      "releaseMs": 250.0,
+      "lookaheadMs": 10.0,
+      "hysteresisDb": 4.0,
+      "minimumContrastDb": 18.0
+    },
+    "noiseReduction": {
+      "method": "noisereduce_stationary",
+      "strength": 0.6,
+      "noiseSampleMs": 250
+    },
+    "outputNaming": {
+      "duplicateSuffix": "_new"
+    }
+  }
+}
