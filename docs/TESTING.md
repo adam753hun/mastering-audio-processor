@@ -1,10 +1,10 @@
 # Verification / Ellenőrzés
 
-2026-11-01 · 0.1.0 · Build 20261101.01 · .NET 8.0.32
+2026-11-01 · 0.2.0 · Build 20261101.02 · .NET 8.0.32
 
-46 checks passed using synthetic audio only.
+380 checks passed (including catalogue completeness and CLI errors). Synthetic audio only.
 
-46 ellenőrzés sikerült, kizárólag generált teszthanggal.
+380 ellenőrzés sikerült (fordítási katalógus és parancssori hibák is). Kizárólag generált teszthang.
 
 - Stationary default: clean
 - Default -23 LUFS: clean
@@ -52,3 +52,20 @@
 - Denoiser bypass disables controls
 - Compressor bypass disables controls
 - GUI preferences saved
+- Hungarian UI retains international audio terms
+- Pending language does not apply before Save
+- Cancel preserves language and DSP settings
+- Settings Save selects English
+- Live main-window translation without restart
+- Language change leaves DSP configuration identical
+- Selected language persisted separately
+- English restored on next startup
+- English settings tabs
+- English technical field labels
+- Translated preset message preserves user name
+- Preset name equal to a UI word is not translated
+- Translated log preserves filename and line ending
+- Translated error preserves folder path
+- Audio output is sample-identical across UI languages
+- Existing preferences without language default to Hungarian
+- English CLI validation error

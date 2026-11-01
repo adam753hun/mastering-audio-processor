@@ -6,9 +6,9 @@ namespace MasteringCs;
 
 public static class BuildInfo
 {
-    public static readonly JsonObject Data = new() { { "version", "0.1.0" }, { "build", "20261101.01" }, { "date", "2026-11-01" }, { "edition", "public-csharp" }, { "framework", "net8.0-windows" } };
-    public static string Label => "0.1.0 · Build 20261101.01 · 2026.11.01";
-    public static string Credits => "Mastering Audio Processor — Public Edition\nC# / .NET 8\n\nCreated by Ádám Sarkament with assistance from AI.\nStationary noise reduction based on noisereduce by Tim Sainburg (MIT).\n\n© 2026 Ádám Sarkament\nGPL-3.0-only — modification and redistribution permitted under the licence.\nNo warranty. Full terms: LICENSE.\nSee THIRD_PARTY_NOTICES.md for attribution.\n\n" + Label;
+    public static readonly JsonObject Data = new() { { "version", "0.2.0" }, { "build", "20261101.02" }, { "date", "2026-11-01" }, { "edition", "public-csharp" }, { "framework", "net8.0-windows" } };
+    public static string Label => "0.2.0 · Build 20261101.02 · 2026.11.01";
+    public static string Credits => L.T("about.credits") + "\n\n" + Label;
 
 }
 
@@ -55,7 +55,7 @@ public sealed class MainForm : Form
         var heading = new Label { Text = "MASTERING  /  PUBLIC", Font = new Font("Segoe UI", 23, FontStyle.Bold), ForeColor = Color.FromArgb(30, 52, 81), AutoSize = true };
         header.Controls.Add(heading, 0, 0);
         var about = new Button { Text = "Névjegy", AutoSize = true };
-        about.Click += (_, _) => MessageBox.Show(this, BuildInfo.Credits, "Mastering", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        about.Click += (_, _) => L.Show(this, BuildInfo.Credits, "Mastering", MessageBoxButtons.OK, MessageBoxIcon.Information);
         header.Controls.Add(about, 1, 0);
         layout.Controls.Add(header, 0, 0);
         var profileRow = new FlowLayoutPanel { AutoSize = true, Dock = DockStyle.Fill, Padding = new Padding(0, 6, 0, 10) };
@@ -90,7 +90,7 @@ public sealed class MainForm : Form
         layout.Controls.Add(journal, 0, 8);
         layout.Controls.Add(new Label { Text = "Mono PCM WAV · 16/24 bit · 44,1/96 kHz · Eredeti fájlokat megőrzi · Gyári cél −23 LUFS", AutoSize = true, Margin = new Padding(0, 10, 0, 0) }, 0, 9);
         start.Click += async (_, _) => await StartBatch();
-        pause.Click += (_, _) => { if (!busy) return; if (control.PauseRequested) { control.Resume(); pause.Text = "Szünet"; status.Text = "Folytatás kérése…"; } else { control.Pause(); pause.Text = "Folytatás"; status.Text = "Szünet kérése: az aktuális fájl még elkészül."; } };
+        pause.Click += (_, _) => { if (!busy) return; if (control.PauseRequested) { control.Resume(); pause.Text = L.Render("Szünet"); status.Text = L.Render("Folytatás kérése…"); } else { control.Pause(); pause.Text = L.Render("Folytatás"); status.Text = L.Render("Szünet kérése: az aktuális fájl még elkészül."); } };
         stop.Click += (_, _) => StopBatch();
         mode.SelectedIndexChanged += (_, _) => ChangeMode();
         input.Text = Path.Combine(root, "input");
@@ -106,7 +106,8 @@ public sealed class MainForm : Form
         mode.SelectedIndex = Array.IndexOf(Config.Modes, selected);
         loading = false;
         RestoreToggles();
-        FormClosing += (_, e) => { if (busy) { e.Cancel = true; if (MessageBox.Show(this, "Az aktuális fájl még elkészül, utána megállítjuk a köteget és bezárjuk az ablakot. Kéred?", "Megállítás és bezárás", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) { closeAfter = true; StopBatch(); } } else { try { SavePreferences(); } catch (Exception ex) { if (MessageBox.Show(this, "A beállítás nem menthető: " + ex.Message + "\nBezárod így is?", "Mentési hiba", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) e.Cancel = true; } } };
+        ApplyLanguage();
+        FormClosing += (_, e) => { if (busy) { e.Cancel = true; if (L.Show(this, "Az aktuális fájl még elkészül, utána megállítjuk a köteget és bezárjuk az ablakot. Kéred?", "Megállítás és bezárás", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) { closeAfter = true; StopBatch(); } } else { try { SavePreferences(); } catch (Exception ex) { if (L.Show(this, "A beállítás nem menthető: " + ex.Message + "\nBezárod így is?", "Mentési hiba", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) e.Cancel = true; } } };
     }
     private Control FolderRow(string title, TextBox box)
     {
@@ -117,7 +118,7 @@ public sealed class MainForm : Form
         row.SetColumnSpan(row.GetControlFromPosition(0, 0)!, 2);
         row.Controls.Add(box, 0, 1);
         var browse = new Button { Text = "Tallózás…", AutoSize = true };
-        browse.Click += (_, _) => { using var d = new FolderBrowserDialog { Description = title, UseDescriptionForTitle = true, SelectedPath = Directory.Exists(box.Text) ? box.Text : root }; if (d.ShowDialog(this) == DialogResult.OK) box.Text = d.SelectedPath; };
+        browse.Click += (_, _) => { using var d = new FolderBrowserDialog { Description = L.T(title), UseDescriptionForTitle = true, SelectedPath = Directory.Exists(box.Text) ? box.Text : root }; if (d.ShowDialog(this) == DialogResult.OK) box.Text = d.SelectedPath; };
         row.Controls.Add(browse, 1, 1);
         frozen.AddRange([box, browse]);
         return row;
@@ -149,13 +150,29 @@ public sealed class MainForm : Form
         CaptureProfile();
         using var f = new SettingsForm(root, profiles[selected], sources[selected], output.Text);
         if (f.ShowDialog(this) == DialogResult.OK)
-        {
-            profiles[selected] = f.Result;
-            sources[selected] = f.PresetSource;
-            RestoreToggles();
-            TrySave();
-            status.Text = "Beállítások alkalmazva. A következő futás ezeket használja.";
-        }
+            ApplySettings(f);
+    }
+    private void ApplySettings(SettingsForm f)
+    {
+        profiles[selected] = f.Result;
+        sources[selected] = f.PresetSource;
+        L.Language = f.UiLanguage;
+        ApplyLanguage();
+        RestoreToggles();
+        TrySave();
+        status.Text = L.Render("Beállítások alkalmazva. A következő futás ezeket használja.");
+    }
+    // HU: A már nyitott főablak frissül; a kiválasztott profil és a szerkesztett útvonalak megmaradnak.
+    // EN: Refresh the existing main window, preserving the selected profile and edited folder paths.
+    private void ApplyLanguage()
+    {
+        L.TranslateTree(this);
+        bool previous = loading;
+        loading = true;
+        mode.Items.Clear();
+        mode.Items.AddRange(Config.Titles);
+        mode.SelectedIndex = Array.IndexOf(Config.Modes, selected);
+        loading = previous;
     }
     private void TrySave()
     {
@@ -175,7 +192,7 @@ public sealed class MainForm : Form
             values[m] = profiles[m].Values.DeepClone();
             presetSources[m] = sources[m]?.DeepClone();
         }
-        var payload = new JsonObject { { "schema", 2 }, { "mode", selected }, { "input", input.Text }, { "output", output.Text }, { "profiles", values }, { "presetSources", presetSources } };
+        var payload = new JsonObject { { "schema", 2 }, { "language", L.Language }, { "mode", selected }, { "input", input.Text }, { "output", output.Text }, { "profiles", values }, { "presetSources", presetSources } };
         string temp = Path.Combine(root, ".gui-preferences-" + Guid.NewGuid().ToString("N") + ".tmp");
         try
         {
@@ -222,6 +239,8 @@ public sealed class MainForm : Form
                 sources[mode] = names[mode];
             }
             selected = m;
+            string language = j["language"]?.GetValue<string>() ?? "hu";
+            L.Language = language is "hu" or "en" ? language : "hu";
             input.Text = j["input"]!.GetValue<string>();
             output.Text = j["output"]!.GetValue<string>();
         }
@@ -246,19 +265,19 @@ public sealed class MainForm : Form
         foreach (var c in frozen)
             c.Enabled = false;
         pause.Enabled = stop.Enabled = true;
-        pause.Text = "Szünet";
+        pause.Text = L.Render("Szünet");
         progress.MarqueeAnimationSpeed = 30;
-        status.Text = "Feldolgozás…";
+        status.Text = L.Render("Feldolgozás…");
         try
         {
             var result = await Task.Run(() => BatchEngine.Run(cfg, inp, outp, name, modified, control, text => { if (IsHandleCreated && !IsDisposed) BeginInvoke((Action)(() => Append(text))); }));
-            status.Text = result.Stopped ? "Megállítva. Az elkészült fájlok megmaradtak." : result.Failed > 0 ? $"Befejezve: {result.Successful} sikeres, {result.Failed} hibás." : $"Elkészült: {result.Successful} fájl, {result.Seconds:F2} másodperc.";
+            status.Text = L.Render(result.Stopped ? "Megállítva. Az elkészült fájlok megmaradtak." : result.Failed > 0 ? $"Befejezve: {result.Successful} sikeres, {result.Failed} hibás." : $"Elkészült: {result.Successful} fájl, {result.Seconds:F2} másodperc.");
             if (!result.Stopped && result.Failed == 0 && result.Successful > 0)
             {
                 System.Media.SystemSounds.Asterisk.Play();
             }
         }
-        catch (Exception ex) { Append("Hiba: " + ex.Message); status.Text = "Nem sikerült feldolgozni. A részletek a naplóban."; }
+        catch (Exception ex) { Append("Hiba: " + ex.Message); status.Text = L.Render("Nem sikerült feldolgozni. A részletek a naplóban."); }
         finally { busy = false; foreach (var c in frozen) c.Enabled = true; pause.Enabled = stop.Enabled = false; progress.MarqueeAnimationSpeed = 0; RestoreToggles(); if (closeAfter) Close(); }
     }
     private void StopBatch()
@@ -267,13 +286,13 @@ public sealed class MainForm : Form
             return;
         control.Stop();
         pause.Enabled = stop.Enabled = false;
-        status.Text = "Megállítás kérése: az aktuális fájl még elkészül.";
+        status.Text = L.Render("Megállítás kérése: az aktuális fájl még elkészül.");
     }
     private void Append(string text)
     {
         if (text == "CONTROL:PAUSED")
         {
-            status.Text = "Szünetel. Folytatás vagy Megállítás választható.";
+            status.Text = L.Render("Szünetel. Folytatás vagy Megállítás választható.");
             progress.MarqueeAnimationSpeed = 0;
             return;
         }
@@ -292,19 +311,19 @@ public sealed class MainForm : Form
                 if (info?["enabled"]?.GetValue<bool>() == true)
                 {
                     if (info["bypassed"]?.GetValue<bool>() == true)
-                        journal.AppendText("Expander/Gate kihagyva: nem megbízható zaj–beszéd elkülönítés, vagy néma bemenet." + Environment.NewLine);
+                        journal.AppendText(L.Render("Expander/Gate kihagyva: nem megbízható zaj–beszéd elkülönítés, vagy néma bemenet." + Environment.NewLine));
                     else
                     {
                         string kind = info["gateEnabled"]?.GetValue<bool>() == true ? "Gate" : "Expander";
                         double? threshold = info["thresholdDbFS"]?.GetValue<double>();
                         double fraction = info["exactZeroGainFraction"]?.GetValue<double>() ?? 0;
-                        journal.AppendText($"{kind} alkalmazva • Küszöb: {threshold:F1} dBFS RMS • Teljes zárás: {fraction * 100:F1}%" + Environment.NewLine);
+                        journal.AppendText(L.Render($"{kind} alkalmazva • Küszöb: {threshold:F1} dBFS RMS • Teljes zárás: {fraction * 100:F1}%" + Environment.NewLine));
                     }
                 }
             }
             catch (System.Text.Json.JsonException) { }
             return;
         }
-        journal.AppendText(text + Environment.NewLine);
+        journal.AppendText(L.Render(text + Environment.NewLine));
     }
 }

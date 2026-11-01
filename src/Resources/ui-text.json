@@ -1,0 +1,578 @@
+{
+  "Hangerő": {
+    "hu": "Hangerő",
+    "en": "Loudness"
+  },
+  "Külön kompresszor": {
+    "hu": "Compressor",
+    "en": "Compressor"
+  },
+  "Zajszűrés": {
+    "hu": "Zajszűrés",
+    "en": "Noise reduction"
+  },
+  "Kimenet": {
+    "hu": "Kimenet",
+    "en": "Output"
+  },
+  "Kíméletes": {
+    "hu": "Kíméletes",
+    "en": "Gentle"
+  },
+  "Játék": {
+    "hu": "Játék",
+    "en": "Game"
+  },
+  "Beállítások…": {
+    "hu": "Beállítások…",
+    "en": "Settings…"
+  },
+  "Beállítások": {
+    "hu": "Beállítások",
+    "en": "Settings"
+  },
+  "Névjegy": {
+    "hu": "Névjegy",
+    "en": "About"
+  },
+  "Bemeneti mappa": {
+    "hu": "Bemeneti mappa",
+    "en": "Input folder"
+  },
+  "Kimeneti mappa": {
+    "hu": "Kimeneti mappa",
+    "en": "Output folder"
+  },
+  "Feldolgozási mód:": {
+    "hu": "Feldolgozási mód:",
+    "en": "Processing mode:"
+  },
+  "Feldolgozás indítása": {
+    "hu": "Feldolgozás indítása",
+    "en": "Start processing"
+  },
+  "Szünet": {
+    "hu": "Szünet",
+    "en": "Pause"
+  },
+  "Folytatás": {
+    "hu": "Folytatás",
+    "en": "Resume"
+  },
+  "Megállítás": {
+    "hu": "Megállítás",
+    "en": "Stop"
+  },
+  "Tallózás…": {
+    "hu": "Tallózás…",
+    "en": "Browse…"
+  },
+  "Kimeneti mappa megnyitása": {
+    "hu": "Kimeneti mappa megnyitása",
+    "en": "Open output folder"
+  },
+  "Válassz módot és hangmappákat.": {
+    "hu": "Válassz módot és hangmappákat.",
+    "en": "Choose a processing mode and audio folders."
+  },
+  "Expander bekapcsolása — kíméletes zajhalkítás": {
+    "hu": "Expander bekapcsolása — kíméletes zajhalkítás",
+    "en": "Enable Expander — gentle attenuation of quiet sections"
+  },
+  "Gate is — hosszabb szünetekben teljes csend": {
+    "hu": "Gate is — hosszabb szünetekben teljes csend",
+    "en": "Enable Gate — silence during longer pauses"
+  },
+  "Mono PCM WAV · 16/24 bit · 44,1/96 kHz · Eredeti fájlokat megőrzi · Gyári cél −23 LUFS": {
+    "hu": "Mono PCM WAV · 16/24 bit · 44,1/96 kHz · Eredeti fájlokat megőrzi · Gyári cél −23 LUFS",
+    "en": "Mono PCM WAV · 16/24 bit · 44.1/96 kHz · Input files preserved · Default target −23 LUFS"
+  },
+  "Mentés": {
+    "hu": "Mentés",
+    "en": "Save"
+  },
+  "Mégse": {
+    "hu": "Mégse",
+    "en": "Cancel"
+  },
+  "Megtart": {
+    "hu": "Megtart",
+    "en": "Keep both"
+  },
+  "Felülír": {
+    "hu": "Felülír",
+    "en": "Overwrite"
+  },
+  "Profil alapértékei": {
+    "hu": "Profil alapértékei",
+    "en": "Profile defaults"
+  },
+  "Preset mentése…": {
+    "hu": "Preset mentése…",
+    "en": "Save preset…"
+  },
+  "Betöltés…": {
+    "hu": "Betöltés…",
+    "en": "Load…"
+  },
+  "Preset neve": {
+    "hu": "Preset neve",
+    "en": "Preset name"
+  },
+  "Az összes fül beállításai együtt mentődnek.": {
+    "hu": "Az összes fül beállításai együtt mentődnek.",
+    "en": "Settings from all tabs are saved together."
+  },
+  "Gyári értékek betöltve. A Mentés alkalmazza.": {
+    "hu": "Gyári értékek betöltve. A Mentés alkalmazza.",
+    "en": "Profile defaults loaded. Save applies them."
+  },
+  "Mentés után a következő feldolgozás használja az értékeket.": {
+    "hu": "Mentés után a következő feldolgozás használja az értékeket.",
+    "en": "After Save, the next batch will use these settings."
+  },
+  "A változtatás csak a Mentés gombbal válik aktívvá.": {
+    "hu": "A változtatás csak a Mentés gombbal válik aktívvá.",
+    "en": "Changes become active only after Save."
+  },
+  "A mentés előtt ellenőrizd a mezők értékeit.": {
+    "hu": "A mentés előtt ellenőrizd a mezők értékeit.",
+    "en": "Check the field values before saving."
+  },
+  "Ellenőrizd a beállításokat": {
+    "hu": "Ellenőrizd a beállításokat",
+    "en": "Check settings"
+  },
+  "Már létezik ilyen preset": {
+    "hu": "Már létezik ilyen preset",
+    "en": "A preset with this name already exists"
+  },
+  "A preset másik módhoz tartozik. Válaszd azt a főablakban.": {
+    "hu": "A preset másik módhoz tartozik. Válaszd azt a főablakban.",
+    "en": "This preset belongs to another mode. Select that mode in the main window."
+  },
+  "noisereduce — kezdő zajminta": {
+    "hu": "noisereduce — kezdő zajminta",
+    "en": "noisereduce — initial noise sample"
+  },
+  "Bypass — zajszűrés nélkül": {
+    "hu": "Bypass — zajszűrés nélkül",
+    "en": "Bypass — no noise reduction"
+  },
+  "A stationary zajszűrő a felvétel elejéből vesz zajmintát. Ebben a szakaszban csak háttérzaj legyen, beszéd ne. A Bypass a zajszűrést kapcsolja ki. Nincs adaptív mód vagy automatikus vágás.": {
+    "hu": "A stationary zajszűrő a felvétel elejéből vesz zajmintát. Ebben a szakaszban csak háttérzaj legyen, beszéd ne. A Bypass a zajszűrést kapcsolja ki. Nincs adaptív mód vagy automatikus vágás.",
+    "en": "Stationary noise reduction samples the beginning of the recording. Keep this section free of speech. Bypass disables noise reduction. There is no adaptive mode or automatic trimming."
+  },
+  "Automatikus küszöbnél a kézi érték nem érvényes. A Gate Hold + Release idő után zárhat teljes nullára; az arány, tartomány és knee csak az Expanderé. Bizonytalan automatikus érzékelésnél a halkítás kimaradhat.": {
+    "hu": "Automatikus Threshold esetén a kézi érték nem érvényes. A Gate Hold + Release után zárhat nullára; a Ratio, Range és Knee csak az Expanderé. Bizonytalan automatikus érzékelésnél a halkítás kimaradhat.",
+    "en": "With automatic Threshold, the manual value is ignored. Gate can reach zero after Hold + Release; Ratio, Range and Knee apply only to Expander. Uncertain automatic detection may bypass attenuation."
+  },
+  "Gyári cél: −23 LUFS. A csúcshatár elsőbbséget élvez; ha nem érhető el a cél, kisebb erősítés készül. Statikus csúcsvédelem, nem dinamikus limiter.": {
+    "hu": "Gyári cél: −23 LUFS. A True Peak ceiling elsőbbséget élvez; ha nem érhető el a cél, kisebb Gain készül. Statikus csúcsvédelem, nem dinamikus limiter.",
+    "en": "Default target: −23 LUFS. The True Peak ceiling takes priority; gain is reduced when the target is not feasible. Static peak protection, not a dynamic limiter."
+  },
+  "Egy kimenet készül fájlonként, a kimeneti mappába vagy annak presetnév almappájába. Szóköz helyett aláhúzás, módosított presetnél _modositott. Meglévő WAV-ot nem ír felül.": {
+    "hu": "Egy kimenet készül fájlonként, a kimeneti mappába vagy annak presetnév almappájába. Szóköz helyett aláhúzás, módosított presetnél _modositott. Meglévő WAV-ot nem ír felül.",
+    "en": "One output is created per file, in the output folder or a preset-named subfolder. Spaces become underscores; modified presets use _modositott. Existing WAV files are never overwritten."
+  },
+  "Folytatás kérése…": {
+    "hu": "Folytatás kérése…",
+    "en": "Resuming…"
+  },
+  "Szünet kérése: az aktuális fájl még elkészül.": {
+    "hu": "Szünet kérése: az aktuális fájl még elkészül.",
+    "en": "Pause requested: the current file will finish first."
+  },
+  "Megállítás kérése: az aktuális fájl még elkészül.": {
+    "hu": "Megállítás kérése: az aktuális fájl még elkészül.",
+    "en": "Stop requested: the current file will finish first."
+  },
+  "Szünetel. Folytatás vagy Megállítás választható.": {
+    "hu": "Szünetel. Folytatás vagy Megállítás választható.",
+    "en": "Paused. Choose Resume or Stop."
+  },
+  "Beállítások alkalmazva. A következő futás ezeket használja.": {
+    "hu": "Beállítások alkalmazva. A következő futás ezeket használja.",
+    "en": "Settings applied. The next batch will use them."
+  },
+  "Feldolgozás…": {
+    "hu": "Feldolgozás…",
+    "en": "Processing…"
+  },
+  "Megállítva. Az elkészült fájlok megmaradtak.": {
+    "hu": "Megállítva. Az elkészült fájlok megmaradtak.",
+    "en": "Stopped. Completed files have been preserved."
+  },
+  "Nem sikerült feldolgozni. A részletek a naplóban.": {
+    "hu": "Nem sikerült feldolgozni. A részletek a naplóban.",
+    "en": "Processing failed. See the log for details."
+  },
+  "Megállítás és bezárás": {
+    "hu": "Megállítás és bezárás",
+    "en": "Stop and close"
+  },
+  "Mentési hiba": {
+    "hu": "Mentési hiba",
+    "en": "Save error"
+  },
+  "Az aktuális fájl még elkészül, utána megállítjuk a köteget és bezárjuk az ablakot. Kéred?": {
+    "hu": "Az aktuális fájl még elkészül, utána megállítjuk a köteget és bezárjuk az ablakot. Kéred?",
+    "en": "Finish the current file, then stop the batch and close the window?"
+  },
+  "A beállítás nem menthető: ": {
+    "hu": "A beállítás nem menthető: ",
+    "en": "Cannot save preferences: "
+  },
+  "A beállítások nem menthetők: ": {
+    "hu": "A beállítások nem menthetők: ",
+    "en": "Cannot save preferences: "
+  },
+  "Bezárod így is?": {
+    "hu": "Bezárod így is?",
+    "en": "Close anyway?"
+  },
+  "A mentett beállítások nem tölthetők be; gyári értékekkel indul: ": {
+    "hu": "A mentett beállítások nem tölthetők be; gyári értékekkel indul: ",
+    "en": "Cannot load saved preferences; using defaults: "
+  },
+  "Expander/Gate kihagyva: nem megbízható zaj–beszéd elkülönítés, vagy néma bemenet.": {
+    "hu": "Expander/Gate kihagyva: nem megbízható zaj–beszéd elkülönítés, vagy néma bemenet.",
+    "en": "Expander/Gate bypassed: uncertain speech/noise separation or silent input."
+  },
+  "Indítás: ": {
+    "hu": "Indítás: ",
+    "en": "Started: "
+  },
+  "Motor: teljes C# / .NET 8; zajszűrés: ": {
+    "hu": "Motor: teljes C# / .NET 8; zajszűrés: ",
+    "en": "Engine: C# / .NET 8; noise reduction: "
+  },
+  "Kész: ": {
+    "hu": "Kész: ",
+    "en": "Saved: "
+  },
+  "Hiba: ": {
+    "hu": "Hiba: ",
+    "en": "Error: "
+  },
+  "Kimenet: ": {
+    "hu": "Kimenet: ",
+    "en": "Output: "
+  },
+  "A bemeneti mappa nem található.": {
+    "hu": "A bemeneti mappa nem található.",
+    "en": "Input folder not found."
+  },
+  "A bemeneti és kimeneti mappa legyen különálló.": {
+    "hu": "A bemeneti és kimeneti mappa legyen különálló.",
+    "en": "Input and output folders must be separate."
+  },
+  "A finomhangolt célmappa nem lehet külső helyre mutató hivatkozás.": {
+    "hu": "A finomhangolt célmappa nem lehet külső helyre mutató hivatkozás.",
+    "en": "The output subfolder must not be a link to an external location."
+  },
+  "Az FFT mérete kettőhatvány legyen.": {
+    "hu": "Az FFT mérete kettőhatvány legyen.",
+    "en": "FFT size must be a power of two."
+  },
+  "Rövid felvétel a kezdő zajmintához.": {
+    "hu": "Rövid felvétel a kezdő zajmintához.",
+    "en": "Recording is shorter than the initial noise sample."
+  },
+  "A csúcsszint-ellenőrzés sikertelen.": {
+    "hu": "A csúcsszint-ellenőrzés sikertelen.",
+    "en": "True Peak verification failed."
+  },
+  "PCM-túlvezérlés megelőzve.": {
+    "hu": "PCM-túlvezérlés megelőzve.",
+    "en": "PCM overflow prevented."
+  },
+  "Túl sok azonos fájlnév.": {
+    "hu": "Túl sok azonos fájlnév.",
+    "en": "Too many duplicate filenames."
+  },
+  "Túl sok azonos nevű preset.": {
+    "hu": "Túl sok azonos nevű preset.",
+    "en": "Too many presets with the same name."
+  },
+  "RIFF WAV szükséges.": {
+    "hu": "RIFF WAV szükséges.",
+    "en": "RIFF WAV required."
+  },
+  "Nem WAVE fájl.": {
+    "hu": "Nem WAVE fájl.",
+    "en": "Not a WAVE file."
+  },
+  "Csonka WAV-chunk.": {
+    "hu": "Csonka WAV-chunk.",
+    "en": "Truncated WAV chunk."
+  },
+  "Hibás WAV-formátum.": {
+    "hu": "Hibás WAV-formátum.",
+    "en": "Invalid WAV format."
+  },
+  "Mono PCM 16/24 bit, 44,1/96 kHz WAV szükséges.": {
+    "hu": "Mono PCM 16/24 bit, 44,1/96 kHz WAV szükséges.",
+    "en": "Mono PCM 16/24-bit, 44.1/96 kHz WAV required."
+  },
+  "Csonka WAV-adat.": {
+    "hu": "Csonka WAV-adat.",
+    "en": "Truncated WAV data."
+  },
+  "16/24 bit szükséges.": {
+    "hu": "16/24 bit szükséges.",
+    "en": "16/24 bit required."
+  },
+  "Nem véges PCM-minta.": {
+    "hu": "Nem véges PCM-minta.",
+    "en": "Non-finite PCM sample."
+  },
+  "Ismeretlen profil.": {
+    "hu": "Ismeretlen profil.",
+    "en": "Unknown profile."
+  },
+  "Ismeretlen vagy hibás beállításcsoport: ": {
+    "hu": "Ismeretlen vagy hibás beállításcsoport: ",
+    "en": "Unknown or invalid settings group: "
+  },
+  "Ismeretlen beállítás: ": {
+    "hu": "Ismeretlen beállítás: ",
+    "en": "Unknown setting: "
+  },
+  "Ismeretlen zajszűrés.": {
+    "hu": "Ismeretlen zajszűrés.",
+    "en": "Unknown noise reduction method."
+  },
+  "Érvénytelen fájlnév-utótag.": {
+    "hu": "Érvénytelen fájlnév-utótag.",
+    "en": "Invalid filename suffix."
+  },
+  "Üres XML.": {
+    "hu": "Üres XML.",
+    "en": "Empty XML."
+  },
+  "publicMasteringSettings XML szükséges.": {
+    "hu": "publicMasteringSettings XML szükséges.",
+    "en": "publicMasteringSettings XML required."
+  },
+  "Duplikált XML-beállítás.": {
+    "hu": "Duplikált XML-beállítás.",
+    "en": "Duplicate XML group."
+  },
+  "Duplikált XML-mező: ": {
+    "hu": "Duplikált XML-mező: ",
+    "en": "Duplicate XML field: "
+  },
+  "true/false szükséges: ": {
+    "hu": "true/false szükséges: ",
+    "en": "true/false required: "
+  },
+  "Túl nagy preset.": {
+    "hu": "Túl nagy preset.",
+    "en": "Preset file is too large."
+  },
+  "Nem támogatott preset.": {
+    "hu": "Nem támogatott preset.",
+    "en": "Unsupported preset."
+  },
+  "Hiányos preset: ": {
+    "hu": "Hiányos preset: ",
+    "en": "Incomplete preset: "
+  },
+  "A preset neve 1–80 látható karakter legyen.": {
+    "hu": "A preset neve 1–80 látható karakter legyen.",
+    "en": "Preset names must contain 1–80 visible characters."
+  },
+  "Túl nagy mentés.": {
+    "hu": "Túl nagy mentés.",
+    "en": "Preferences file is too large."
+  },
+  "Ismeretlen mentési séma.": {
+    "hu": "Ismeretlen mentési séma.",
+    "en": "Unknown preferences schema."
+  },
+  "Ismeretlen mód.": {
+    "hu": "Ismeretlen mód.",
+    "en": "Unknown mode."
+  },
+  "--test-dir szükséges": {
+    "hu": "--test-dir szükséges",
+    "en": "--test-dir required"
+  },
+  "--report szükséges": {
+    "hu": "--report szükséges",
+    "en": "--report required"
+  },
+  "Use either --preset or --settings.": {
+    "hu": "A --preset és --settings közül csak az egyik adható meg.",
+    "en": "Use either --preset or --settings."
+  },
+  "Felület": {
+    "hu": "Felület",
+    "en": "Interface"
+  },
+  "Nyelv / Language": {
+    "hu": "Nyelv / Language",
+    "en": "Nyelv / Language"
+  },
+  "A nyelv a Mentés után változik meg. A presetek hangbeállításait nem módosítja.": {
+    "hu": "A nyelv a Mentés után változik meg. A presetek hangbeállításait nem módosítja.",
+    "en": "The language changes after Save. Audio preset settings are unaffected."
+  },
+  "Befejezve. Sikeres: {ok}; hibás: {failed}; megállítva: {control.StopRequested}; idő: {watch.Elapsed.TotalSeconds:F2} s": {
+    "hu": "Befejezve. Sikeres: {ok}; hibás: {failed}; megállítva: {control.StopRequested}; idő: {watch.Elapsed.TotalSeconds:F2} s",
+    "en": "Finished. Successful: {ok}; failed: {failed}; stopped: {control.StopRequested}; time: {watch.Elapsed.TotalSeconds:F2} s"
+  },
+  "Befejezve: {result.Successful} sikeres, {result.Failed} hibás.": {
+    "hu": "Befejezve: {result.Successful} sikeres, {result.Failed} hibás.",
+    "en": "Finished: {result.Successful} successful, {result.Failed} failed."
+  },
+  "Elkészült: {result.Successful} fájl, {result.Seconds:F2} másodperc.": {
+    "hu": "Elkészült: {result.Successful} fájl, {result.Seconds:F2} másodperc.",
+    "en": "Completed: {result.Successful} files in {result.Seconds:F2} seconds."
+  },
+  "Elért hangerő: {result.Info.OutputLUFS:F2} LUFS • Csúcsszint: {result.Info.OutputTruePeakEstimateDbTP:F2} dBTP": {
+    "hu": "Elért hangerő: {result.Info.OutputLUFS:F2} LUFS • Csúcsszint: {result.Info.OutputTruePeakEstimateDbTP:F2} dBTP",
+    "en": "Output loudness: {result.Info.OutputLUFS:F2} LUFS • True Peak: {result.Info.OutputTruePeakEstimateDbTP:F2} dBTP"
+  },
+  "Exportvédelem: {20 * Math.Log10(effective / safety):F4} dB egyenletes halkítás; nincs csúcslevágás.": {
+    "hu": "Exportvédelem: {20 * Math.Log10(effective / safety):F4} dB egyenletes halkítás; nincs csúcslevágás.",
+    "en": "Export protection: {20 * Math.Log10(effective / safety):F4} dB uniform attenuation; no clipping."
+  },
+  "Fájl feldolgozási ideje: {timer.Elapsed.TotalSeconds:F3} s": {
+    "hu": "Fájl feldolgozási ideje: {timer.Elapsed.TotalSeconds:F3} s",
+    "en": "File processing time: {timer.Elapsed.TotalSeconds:F3} s"
+  },
+  "{kind} alkalmazva • Küszöb: {threshold:F1} dBFS RMS • Teljes zárás: {fraction * 100:F1}%": {
+    "hu": "{kind} alkalmazva • Threshold: {threshold:F1} dBFS RMS • Teljes zárás: {fraction * 100:F1}%",
+    "en": "{kind} applied • Threshold: {threshold:F1} dBFS RMS • Fully closed: {fraction * 100:F1}%"
+  },
+  "Betöltve: {0}. A Mentés alkalmazza, a Mégse elveti.": {
+    "hu": "Betöltve: {0}. A Mentés alkalmazza, a Mégse elveti.",
+    "en": "Loaded: {0}. Save applies it; Cancel discards it."
+  },
+  "Preset elmentve: {0}. A Mentés alkalmazza a profilra.": {
+    "hu": "Preset elmentve: {0}. A Mentés alkalmazza a profilra.",
+    "en": "Preset saved: {0}. Save applies it to the profile."
+  },
+  "Ezen a néven már mentettél: {0}\nFelülír: lecseréli. Megtart: új, sorszámozott fájlt készít.": {
+    "hu": "Ezen a néven már mentettél: {0}\nFelülír: lecseréli. Megtart: új, sorszámozott fájlt készít.",
+    "en": "A preset with this name exists: {0}\nOverwrite replaces it. Keep both creates a numbered copy."
+  },
+  "Nincs WAV a bemeneti mappában: {0}. Az almappákat nem dolgozza fel.": {
+    "hu": "Nincs WAV a bemeneti mappában: {0}. Az almappákat nem dolgozza fel.",
+    "en": "No WAV files in the input folder: {0}. Subfolders are not processed."
+  },
+  "Kézi erősítés (dB)": {
+    "hu": "Kézi Gain (dB)",
+    "en": "Manual Gain (dB)"
+  },
+  "LUFS-normalizálás bekapcsolva": {
+    "hu": "LUFS-normalizálás bekapcsolva",
+    "en": "Enable LUFS normalization"
+  },
+  "Célhangerő (LUFS)": {
+    "hu": "Célhangerő (LUFS)",
+    "en": "Target loudness (LUFS)"
+  },
+  "Csúcshatár (dBTP)": {
+    "hu": "True Peak ceiling (dBTP)",
+    "en": "True Peak ceiling (dBTP)"
+  },
+  "Külön kompresszor bekapcsolva": {
+    "hu": "Compressor bekapcsolva",
+    "en": "Enable Compressor"
+  },
+  "Küszöb (dBFS)": {
+    "hu": "Threshold (dBFS)",
+    "en": "Threshold (dBFS)"
+  },
+  "Arány (:1)": {
+    "hu": "Ratio (:1)",
+    "en": "Ratio (:1)"
+  },
+  "Lágy térd (dB)": {
+    "hu": "Knee (dB)",
+    "en": "Knee (dB)"
+  },
+  "Attack (ms)": {
+    "hu": "Attack (ms)",
+    "en": "Attack (ms)"
+  },
+  "Release (ms)": {
+    "hu": "Release (ms)",
+    "en": "Release (ms)"
+  },
+  "Előretekintés (ms)": {
+    "hu": "Lookahead (ms)",
+    "en": "Lookahead (ms)"
+  },
+  "Expander bekapcsolva": {
+    "hu": "Expander bekapcsolva",
+    "en": "Enable Expander"
+  },
+  "Automatikus küszöbbecslés": {
+    "hu": "Automatikus Threshold",
+    "en": "Automatic Threshold"
+  },
+  "Kézi RMS-küszöb (dBFS)": {
+    "hu": "Kézi RMS Threshold (dBFS)",
+    "en": "Manual RMS Threshold (dBFS)"
+  },
+  "Zaj feletti margó (dB)": {
+    "hu": "Noise margin (dB)",
+    "en": "Noise margin (dB)"
+  },
+  "Expander arány (:1)": {
+    "hu": "Expander Ratio (:1)",
+    "en": "Expander Ratio (:1)"
+  },
+  "Max. halkítás (dB)": {
+    "hu": "Max. Range (dB)",
+    "en": "Maximum Range (dB)"
+  },
+  "Nyitás / attack (ms)": {
+    "hu": "Attack (ms)",
+    "en": "Attack (ms)"
+  },
+  "Nyitva tartás / hold (ms)": {
+    "hu": "Hold (ms)",
+    "en": "Hold (ms)"
+  },
+  "Zárás / release (ms)": {
+    "hu": "Release (ms)",
+    "en": "Release (ms)"
+  },
+  "Hiszterézis (dB)": {
+    "hu": "Hysteresis (dB)",
+    "en": "Hysteresis (dB)"
+  },
+  "Min. szintkülönbség (dB)": {
+    "hu": "Min. szintkülönbség (dB)",
+    "en": "Minimum level contrast (dB)"
+  },
+  "Zajszűrési mód": {
+    "hu": "Zajszűrési mód",
+    "en": "Noise reduction mode"
+  },
+  "Zajcsökkentés erőssége (0–1)": {
+    "hu": "Zajcsökkentés erőssége (0–1)",
+    "en": "Noise reduction strength (0–1)"
+  },
+  "Kezdő zajminta (ms)": {
+    "hu": "Kezdő zajminta (ms)",
+    "en": "Initial noise sample (ms)"
+  },
+  "Duplikált fájl utótagja": {
+    "hu": "Duplikált fájl utótagja",
+    "en": "Duplicate filename suffix"
+  },
+  "about.credits": {
+    "hu": "Mastering Audio Processor — Public Edition\nC# / .NET 8\n\nKészítette: Ádám Sarkament, AI segítségével.\nA stationary zajszűrés alapja Tim Sainburg noisereduce eljárása (MIT).\n\n© 2026 Ádám Sarkament\nGPL-3.0-only — módosítás és továbbadás a licenc szerint megengedett.\nNincs garancia. Teljes feltételek: LICENSE.\nKülső összetevők: THIRD_PARTY_NOTICES.md.",
+    "en": "Mastering Audio Processor — Public Edition\nC# / .NET 8\n\nCreated by Ádám Sarkament with assistance from AI.\nStationary noise reduction based on noisereduce by Tim Sainburg (MIT).\n\n© 2026 Ádám Sarkament\nGPL-3.0-only — modification and redistribution permitted under the licence.\nNo warranty. Full terms: LICENSE.\nSee THIRD_PARTY_NOTICES.md for attribution."
+  },
+  "Mérések: ": {
+    "hu": "Mérések: ",
+    "en": "Measurements: "
+  }
+}

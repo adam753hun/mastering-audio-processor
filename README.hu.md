@@ -16,7 +16,7 @@
 - Minden fül beállítását együtt mentő presetek, névütközésnél Felülír / Megtart / Mégse.
 - Preset szerinti kimeneti almappák, számozott fájlnévütközés-kezelés.
 - Háttérben futó feldolgozás, fájlhatáron szünet/folytatás és megállítás.
-- Magyar felület, magyar/angol fejlesztői kommentek és dokumentáció.
+- Választható magyar/angol felület, magyar/angol fejlesztői kommentek és dokumentáció.
 
 Ez önálló nyilvános kiadás, kizárólag az itt ismertetett feldolgozómodulokkal.
 Működéséhez nincs szükség Pythonra, külön hangfeldolgozó programra, fiókra vagy
@@ -38,6 +38,20 @@ dotnet build src/Mastering.CSharp.csproj -c Release
 Nincs külső NuGet-függőség. A Windows Desktop targeting packoknak telepítve kell
 lenniük. A mellékelt `NuGet.Config` nem használ csomagforrást, így előkészített
 gépen offline is fordítható.
+
+## Nyelvválasztás
+
+**Beállítások… → Felület → Nyelv / Language → Magyar vagy English → Mentés.**
+A főablak rögtön átvált, a választás a következő indításra is megmarad. A magyar
+az alapértelmezett; a Mégse elveti a még nem mentett nyelvválasztást.
+
+A nyelv külön felületi beállítás, nem része a hangpreseteknek: nem módosítja a
+DSP értékeit, nem jelöli módosítottnak a presetet és nem változtatja meg a hangot.
+A magyar felületen a nemzetközi szakkifejezések angolul maradnak: Threshold,
+Ratio, Attack, Hold, Release, Lookahead, Knee, True Peak, Compressor.
+Az alkalmazás üzenetei és a napló leíró szövegei is követik a választást. A már
+kiírt naplósorok megmaradnak; a rendszerablakok és rendszerhibák nyelve Windows
+szerinti lehet. A fájl- és presetnevek változatlanok.
 
 ## Használat
 
@@ -78,7 +92,8 @@ A Kíméletes és Játék alapértéke is −23 LUFS; a −14-es célhoz külön
 
 ## Parancssor és fejlesztés
 
-A `--process` ugyanazt a motort futtatja felület nélkül. `--profile gentle`,
+A `--process` ugyanazt a motort futtatja felület nélkül. A `--language hu` vagy
+`--language en` a parancssori üzenetek nyelvét választja ki. `--profile gentle`,
 `--input`, `--output`, `--report`, illetve `--preset` vagy `--settings` adható meg.
 A Windows GUI-exét várakozó indítással használd; az eredmény a jelentésben és a
 kimeneti `log.txt` fájlban olvasható. Példák az [angol leírásban](README.md), XML

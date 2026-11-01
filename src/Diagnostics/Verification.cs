@@ -122,6 +122,83 @@ public static class Verification
         using (var form = new MainForm(directory))
             typeof(MainForm).GetMethod("SavePreferences", flags)!.Invoke(form, null);
         Check(File.Exists(Path.Combine(directory, "gui_preferences.json")), "GUI preferences saved");
+        VerifyLanguages(directory, Check);
         return new JsonObject { ["passed"] = true, ["checks"] = checks, ["framework"] = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription };
+    }
+    // HU: A nyelvváltás valódi mentési útját és a DSP változatlanságát is ellenőrizzük.
+    // EN: Exercise the actual language-save path and verify that audio processing stays identical.
+    private static void VerifyLanguages(string directory, Action<bool, string> check)
+    {
+        var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+        IEnumerable<Control> Tree(Control c) => new[] { c }.Concat(c.Controls.Cast<Control>().SelectMany(Tree));
+        foreach (var f in Config.Fields.Where(f => !f.Hidden))
+            check(L.Catalog.ContainsKey(f.Label), "Translated field: " + f.Group + "/" + f.Key);
+        foreach (var item in L.Catalog)
+        {
+            check(!string.IsNullOrWhiteSpace(item.Value.hu) && !string.IsNullOrWhiteSpace(item.Value.en), "Complete translation: " + item.Key.Split('\n')[0]);
+            int Count(string text) => System.Text.RegularExpressions.Regex.Matches(text, @"\{[^{}]+\}").Count;
+            check(Count(item.Key) == Count(item.Value.hu) && Count(item.Key) == Count(item.Value.en), "Translation placeholders: " + item.Key.Split('\n')[0]);
+        }
+        L.Language = "hu";
+        check(L.T("Előretekintés (ms)") == "Lookahead (ms)" && L.T("Küszöb (dBFS)") == "Threshold (dBFS)", "Hungarian UI retains international audio terms");
+        string uiRoot = Path.Combine(directory, "language-checks");
+        Directory.CreateDirectory(uiRoot);
+        using (var main = new MainForm(uiRoot))
+        {
+            var profiles = (Dictionary<string, Config>)typeof(MainForm).GetField("profiles", flags)!.GetValue(main)!;
+            string before = profiles["gentle"].Values.ToJsonString();
+            using (var cancel = new SettingsForm(uiRoot, profiles["gentle"], null))
+            {
+                var choice = (ComboBox)typeof(SettingsForm).GetField("language", flags)!.GetValue(cancel)!;
+                choice.SelectedIndex = 1;
+                check(L.Language == "hu" && cancel.UiLanguage == "hu", "Pending language does not apply before Save");
+                cancel.DialogResult = DialogResult.Cancel;
+            }
+            check(L.Language == "hu" && profiles["gentle"].Values.ToJsonString() == before, "Cancel preserves language and DSP settings");
+            using var settings = new SettingsForm(uiRoot, profiles["gentle"], null);
+            var language = (ComboBox)typeof(SettingsForm).GetField("language", flags)!.GetValue(settings)!;
+            language.SelectedIndex = 1;
+            settings.Show();
+            Application.DoEvents();
+            Tree(settings).OfType<Button>().Single(b => b.Text == "Mentés").PerformClick();
+            check(settings.UiLanguage == "en" && settings.DialogResult == DialogResult.OK, "Settings Save selects English");
+            typeof(MainForm).GetMethod("ApplySettings", flags)!.Invoke(main, [settings]);
+            check(Tree(main).OfType<Button>().Any(b => b.Text == "Start processing"), "Live main-window translation without restart");
+            check(profiles["gentle"].Values.ToJsonString() == before, "Language change leaves DSP configuration identical");
+            var payload = JsonNode.Parse(File.ReadAllText(Path.Combine(uiRoot, "gui_preferences.json")))!;
+            check(payload["language"]!.GetValue<string>() == "en", "Selected language persisted separately");
+        }
+        L.Language = "hu";
+        using (var reloaded = new MainForm(uiRoot))
+            check(L.Language == "en" && Tree(reloaded).OfType<Button>().Any(b => b.Text == "Start processing"), "English restored on next startup");
+        using (var english = new SettingsForm(uiRoot, new Config("gentle"), null))
+        {
+            var tab = Tree(english).OfType<TabControl>().Single();
+            check(tab.TabPages.Cast<TabPage>().Any(p => p.Text == "Interface") && tab.TabPages.Cast<TabPage>().Any(p => p.Text == "Noise reduction"), "English settings tabs");
+            check(Tree(english).OfType<Label>().Any(l => l.Text == "True Peak ceiling (dBTP)"), "English technical field labels");
+            english.Show();
+            Application.DoEvents();
+            tab.SelectedTab = tab.TabPages.Cast<TabPage>().Single(p => p.Text == "Interface");
+            Application.DoEvents();
+            using var picture = new Bitmap(english.Width, english.Height);
+            english.DrawToBitmap(picture, new Rectangle(0, 0, picture.Width, picture.Height));
+            picture.Save(Path.Combine(directory, "language-settings-en.png"));
+        }
+        check(L.Render("Betöltve: Voice One. A Mentés alkalmazza, a Mégse elveti.") == "Loaded: Voice One. Save applies it; Cancel discards it.", "Translated preset message preserves user name");
+        check(L.Render("Betöltve: Mentés. A Mentés alkalmazza, a Mégse elveti.") == "Loaded: Mentés. Save applies it; Cancel discards it.", "Preset name equal to a UI word is not translated");
+        check(L.Render("Kész: C:\\Audio\\Mentés.wav\r\n") == "Saved: C:\\Audio\\Mentés.wav\r\n", "Translated log preserves filename and line ending");
+        check(L.Render("Nincs WAV a bemeneti mappában: C:\\Audio\\Voice One. Az almappákat nem dolgozza fel.") == "No WAV files in the input folder: C:\\Audio\\Voice One. Subfolders are not processed.", "Translated error preserves folder path");
+        L.Language = "hu";
+        var sample = Enumerable.Range(0, 44100).Select(i => (float)(.1 * Math.Sin(2 * Math.PI * 220 * i / 44100))).ToArray();
+        var hu = Finishing.Apply(sample, 44100, 2, new Config("gentle")).Samples;
+        L.Language = "en";
+        var en = Finishing.Apply(sample, 44100, 2, new Config("gentle")).Samples;
+        check(hu.SequenceEqual(en), "Audio output is sample-identical across UI languages");
+        string prefsPath = Path.Combine(uiRoot, "gui_preferences.json");
+        var old = JsonNode.Parse(File.ReadAllText(prefsPath))!.AsObject();
+        old.Remove("language");
+        File.WriteAllText(prefsPath, old.ToJsonString());
+        using (var legacyPreferences = new MainForm(uiRoot))
+            check(L.Language == "hu", "Existing preferences without language default to Hungarian");
     }
 }

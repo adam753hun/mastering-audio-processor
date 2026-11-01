@@ -14,6 +14,8 @@ public sealed class SettingsForm : Form
     private readonly string outputFolder;
     private readonly ComboBox presets = new() { DropDownStyle = ComboBoxStyle.DropDownList, Width = 260 };
     private readonly List<(string Name, string Path)> presetFiles = [];
+    private readonly ComboBox language = new() { DropDownStyle = ComboBoxStyle.DropDownList, Width = 240 };
+    public string UiLanguage { get; private set; } = L.Language;
     public Config Result
     {
         get; private set;
@@ -30,7 +32,7 @@ public sealed class SettingsForm : Form
         initial = config.Copy();
         Result = config.Copy();
         PresetSource = (JsonObject?)presetSource?.DeepClone();
-        Text = "Beállítások — " + Config.Titles[Array.IndexOf(Config.Modes, config.Mode)];
+        Text = L.T("Beállítások") + " — " + Config.Titles[Array.IndexOf(Config.Modes, config.Mode)];
         Size = new Size(960, 820);
         MinimumSize = new Size(850, 720);
         StartPosition = FormStartPosition.CenterParent;
@@ -56,7 +58,7 @@ public sealed class SettingsForm : Form
             foreach (var field in Config.Fields.Where(f => f.Tab == title && !f.Hidden))
             {
                 int row = grid.RowCount++;
-                var label = new Label { Text = field.Label, AutoSize = true, MaximumSize = new Size(560, 0), Margin = new Padding(4, 10, 8, 6) };
+                var label = new Label { Text = L.T(field.Label), AutoSize = true, MaximumSize = new Size(560, 0), Margin = new Padding(4, 10, 8, 6) };
                 grid.Controls.Add(label, 0, row);
                 Control editor;
                 if (field.Kind == "bool")
@@ -64,7 +66,7 @@ public sealed class SettingsForm : Form
                 else if (field.Kind == "text" && field.Key == "method")
                 {
                     var combo = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Width = 260 };
-                    combo.Items.AddRange(["noisereduce — kezdő zajminta", "Bypass — zajszűrés nélkül"]);
+                    combo.Items.AddRange([L.T("noisereduce — kezdő zajminta"), L.T("Bypass — zajszűrés nélkül")]);
                     editor = combo;
                 }
                 else if (field.Kind == "text")
@@ -95,10 +97,21 @@ public sealed class SettingsForm : Form
             grid.Controls.Add(explanation, 0, grid.RowCount++);
             grid.SetColumnSpan(explanation, 2);
         }
+        // HU: A nyelv külön felületi beállítás. Mentésig nincs globális változás, a Mégse elveti.
+        // EN: Language is a separate UI preference. No global change until Save; Cancel discards it.
+        var interfacePage = new TabPage(L.T("Felület")) { Padding = new Padding(20), BackColor = Color.White };
+        var interfaceLayout = new FlowLayoutPanel { Dock = DockStyle.Fill, FlowDirection = FlowDirection.TopDown, WrapContents = false };
+        interfaceLayout.Controls.Add(new Label { Text = L.T("Nyelv / Language"), AutoSize = true, Margin = new Padding(4, 8, 4, 12) });
+        language.Items.AddRange(["Magyar", "English"]);
+        language.SelectedIndex = L.Language == "en" ? 1 : 0;
+        interfaceLayout.Controls.Add(language);
+        interfaceLayout.Controls.Add(new Label { Text = L.T("A nyelv a Mentés után változik meg. A presetek hangbeállításait nem módosítja."), AutoSize = true, MaximumSize = new Size(800, 0), Margin = new Padding(4, 22, 4, 8) });
+        interfacePage.Controls.Add(interfaceLayout);
+        tabs.TabPages.Add(interfacePage);
         var choose = new FlowLayoutPanel { AutoSize = true, Dock = DockStyle.Fill };
         outer.Controls.Add(choose, 0, 1);
         var reset = new Button { Text = "Profil alapértékei", AutoSize = true };
-        reset.Click += (_, _) => { PresetSource = null; Fill(new Config(initial.Mode)); note.Text = "Gyári értékek betöltve. A Mentés alkalmazza."; };
+        reset.Click += (_, _) => { PresetSource = null; Fill(new Config(initial.Mode)); note.Text = L.Render("Gyári értékek betöltve. A Mentés alkalmazza."); };
         choose.Controls.Add(reset);
         choose.Controls.Add(new Label { Text = "Preset:", AutoSize = true, Margin = new Padding(14, 10, 5, 5) });
         choose.Controls.Add(presets);
@@ -116,13 +129,14 @@ public sealed class SettingsForm : Form
         outer.Controls.Add(buttons, 0, 4);
         var cancel = new Button { Text = "Mégse", DialogResult = DialogResult.Cancel, AutoSize = true };
         var save = new Button { Text = "Mentés", AutoSize = true };
-        save.Click += (_, _) => { try { Result = Collect(); DialogResult = DialogResult.OK; Close(); } catch (Exception e) { Error(e); } };
+        save.Click += (_, _) => { try { Result = Collect(); UiLanguage = language.SelectedIndex == 1 ? "en" : "hu"; DialogResult = DialogResult.OK; Close(); } catch (Exception e) { Error(e); } };
         buttons.Controls.Add(cancel);
         buttons.Controls.Add(save);
         CancelButton = cancel;
         Fill(config);
         RefreshPresets();
-        note.Text = "Mentés után a következő feldolgozás használja az értékeket.";
+        note.Text = L.Render("Mentés után a következő feldolgozás használja az értékeket.");
+        L.TranslateTree(this);
     }
     private void Fill(Config c)
     {
@@ -208,9 +222,9 @@ public sealed class SettingsForm : Form
             string folder = outputFolder;
             if (name.Length > 0)
                 folder = Path.Combine(folder, BatchEngine.SafeFolder(name, modified));
-            preview.Text = "Kimenet: " + folder;
+            preview.Text = L.Render("Kimenet: " + folder);
         }
-        catch (ArgumentException) { preview.Text = "A mentés előtt ellenőrizd a mezők értékeit."; }
+        catch (ArgumentException) { preview.Text = L.Render("A mentés előtt ellenőrizd a mezők értékeit."); }
     }
     private void RefreshPresets()
     {
@@ -241,7 +255,7 @@ public sealed class SettingsForm : Form
             Fill(c);
             PresetSource = new JsonObject { { "name", name }, { "values", c.Values.DeepClone() } };
             UpdatePreview();
-            note.Text = "Betöltve: " + name + ". A Mentés alkalmazza, a Mégse elveti.";
+            note.Text = L.Render("Betöltve: " + name + ". A Mentés alkalmazza, a Mégse elveti.");
         }
         catch (Exception e) { Error(e); }
     }
@@ -263,11 +277,11 @@ public sealed class SettingsForm : Form
             PresetSource = new JsonObject { { "name", name }, { "values", c.Values.DeepClone() } };
             UpdatePreview();
             RefreshPresets();
-            note.Text = "Preset elmentve: " + Path.GetFileName(path) + ". A Mentés alkalmazza a profilra.";
+            note.Text = L.Render("Preset elmentve: " + Path.GetFileName(path) + ". A Mentés alkalmazza a profilra.");
         }
         catch (Exception e) { Error(e); }
     }
-    private void Error(Exception e) => MessageBox.Show(this, e.Message, "Ellenőrizd a beállításokat", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+    private void Error(Exception e) => L.Show(this, e.Message, "Ellenőrizd a beállításokat", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 }
 public static class TextPrompt
 {
@@ -281,6 +295,7 @@ public static class TextPrompt
         f.Controls.AddRange([l, t, ok, cancel]);
         f.AcceptButton = ok;
         f.CancelButton = cancel;
+        L.TranslateTree(f);
         return f.ShowDialog(owner) == DialogResult.OK ? t.Text : null;
     }
 }
@@ -301,6 +316,7 @@ public static class ConflictForm
         var cancel = B("Mégse", 365, DialogResult.Cancel);
         f.AcceptButton = keep;
         f.CancelButton = cancel;
+        L.TranslateTree(f);
         return f.ShowDialog(owner);
     }
 }

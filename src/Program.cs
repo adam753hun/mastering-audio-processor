@@ -10,6 +10,13 @@ public static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        string? language = Arg(args, "--language");
+        if (language != null)
+        {
+            if (language is not ("hu" or "en"))
+                return 1;
+            L.Language = language;
+        }
         if (args.Contains("--process"))
             return CommandLine(args);
         ApplicationConfiguration.Initialize();
@@ -35,6 +42,18 @@ public static class Program
                 using var bitmap = new Bitmap(form.Width, form.Height);
                 form.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
                 bitmap.Save(image);
+            }
+            string? settingsImage = Arg(args, "--settings-snapshot");
+            if (settingsImage != null)
+            {
+                using var settingsForm = new SettingsForm(AppContext.BaseDirectory, new Config("gentle"), null, "output");
+                settingsForm.Show();
+                var tabs = settingsForm.Controls.Cast<Control>().OfType<TableLayoutPanel>().Single().Controls.OfType<TabControl>().Single();
+                tabs.SelectedIndex = tabs.TabCount - 1;
+                Application.DoEvents();
+                using var bitmap = new Bitmap(settingsForm.Width, settingsForm.Height);
+                settingsForm.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
+                bitmap.Save(settingsImage);
             }
             string? report = Arg(args, "--report");
             if (report != null)
@@ -72,6 +91,6 @@ public static class Program
                 File.WriteAllText(report, JsonSerializer.Serialize(result, BatchEngine.JsonOptions));
             return result.Stopped ? 130 : result.Failed == 0 ? 0 : 2;
         }
-        catch (Exception e) { string? report = Arg(args, "--report"); if (report != null) File.WriteAllText(report, JsonSerializer.Serialize(new { error = e.ToString() }, BatchEngine.JsonOptions)); Console.Error.WriteLine(e); return 1; }
+        catch (Exception e) { string? report = Arg(args, "--report"); if (report != null) File.WriteAllText(report, JsonSerializer.Serialize(new { error = L.Render(e.Message) }, BatchEngine.JsonOptions)); Console.Error.WriteLine(L.Render(e.Message)); return 1; }
     }
 }

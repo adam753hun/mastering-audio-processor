@@ -9,6 +9,7 @@ not a generated designer file.
 | File | English | Magyar |
 |---|---|---|
 | `src/Program.cs` | GUI entry, CLI and diagnostics | Indítás, parancssor, ellenőrzés |
+| `src/Gui/Localization.cs` | Presentation-only localization, HU/EN text catalog | Felületi fordítás, külön kezelt nyelv |
 | `src/Gui/MainForm.cs` | Batch controls, preferences, progress | Főablak, beállításmentés, napló |
 | `src/Gui/SettingsForm.cs` | Working-copy settings and presets | Munkapéldányban szerkesztett beállítások |
 | `src/Core/Config.cs` | Strict public settings schema | Nyilvános séma és értékellenőrzés |
@@ -57,3 +58,19 @@ fordítási kimenetet, felhasználói beállítást, felvételt vagy feldolgozá
 Public release history begins at **0.1.0 / 20261101.01 / 2026-11-01**.
 Update `BuildInfo` and `src/BUILD_INFO.json` together. Make no performance or
 bit-identity claim without measurements of this exact public pipeline.
+
+## Localization / Fordítás
+
+`src/Resources/ui-text.json` contains canonical message keys and explicit `hu` /
+`en` texts. Keep placeholders in the same order in both languages. `L.T` selects
+literal labels; `L.Render` translates formatted presentation messages without
+changing substituted filenames. Do not translate protocol keys, JSON/XML
+identifiers, preset names or folder components. Native Windows dialogs use the
+operating system language. Add catalogue coverage tests for new fields.
+
+A `gui_preferences.json` külön `language` mezőt kap (`hu` vagy `en`). Régi, ilyen
+mező nélküli mentés magyarul indul. A Beállítások munkapéldányában lévő nyelv csak
+Mentéskor kerül alkalmazásra; a preset JSON-ba nem kerül bele. A nyelvi tesztek
+mintára azonos DSP-kimenetet és a tényleges mentési/visszatöltési utat ellenőrzik.
+
+Current public release: **0.2.0 / 20261101.02 / 2026-11-01**.

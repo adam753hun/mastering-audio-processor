@@ -1,6 +1,6 @@
 {
-  "version": "0.1.0",
-  "build": "20261101.01",
+  "version": "0.2.0",
+  "build": "20261101.02",
   "date": "2026-11-01",
   "edition": "public-csharp",
   "framework": "net8.0-windows"

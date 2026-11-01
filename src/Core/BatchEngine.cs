@@ -66,7 +66,7 @@ public static class BatchEngine
         using var journal = new StreamWriter(Path.Combine(output, "log.txt"), true, new UTF8Encoding(false)) { AutoFlush = true };
         void Report(string text)
         {
-            journal.WriteLine(text);
+            journal.WriteLine(L.Render(text));
             log(text);
         }
         string FineFolder()
@@ -122,7 +122,7 @@ public static class BatchEngine
                 ok++;
                 Report($"Fájl feldolgozási ideje: {timer.Elapsed.TotalSeconds:F3} s");
             }
-            catch (Exception ex) when (ex is not (OutOfMemoryException or StackOverflowException)) { failed++; Report("Hiba: " + Path.GetFileName(source) + ": " + ex.Message); }
+            catch (Exception ex) when (ex is not (OutOfMemoryException or StackOverflowException)) { failed++; Report("Hiba: " + Path.GetFileName(source) + ": " + L.Render(ex.Message)); }
         }
         var resultBatch = new BatchResult(ok, failed, control.StopRequested, watch.Elapsed.TotalSeconds);
         Report($"Befejezve. Sikeres: {ok}; hibás: {failed}; megállítva: {control.StopRequested}; idő: {watch.Elapsed.TotalSeconds:F2} s");

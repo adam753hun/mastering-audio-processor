@@ -12,7 +12,7 @@ namespace MasteringCs;
 public sealed class Config
 {
     public static readonly string[] Modes = ["clean", "gentle", "game"];
-    public static readonly string[] Titles = ["Zajszűrés", "Kíméletes", "Játék"];
+    public static string[] Titles => [L.T("Zajszűrés"), L.T("Kíméletes"), L.T("Játék")];
     public static readonly JsonObject Factories = JsonNode.Parse(Resource("default_profiles.json"))!.AsObject();
     public static readonly FieldSpec[] Fields = JsonSerializer.Deserialize<FieldSpec[]>(Resource("fields.json"))!;
     public JsonObject Values

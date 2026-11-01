@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.0 — 2026-11-01 · Build 20261101.02
+
+- Hungarian/English UI selector in Settings → Interface; applies on Save without restart.
+- Persisted language preference, independent of audio presets.
+- Translated dialogs, help, status messages, validation labels and log descriptions.
+- International audio terms retained in Hungarian labels.
+- Translation completeness, Save/Cancel, startup migration and sample-identity checks.
+
+- Magyar/angol nyelvválasztó a Beállítások → Felület fülön, azonnali váltással Mentés után.
+- Külön mentett felületi nyelv; a preset és a DSP változatlan marad.
+- Fordított üzenetek és súgók; angol szakkifejezések a magyar felületen is.
+
 ## 0.1.0 — 2026-11-01
 
 - First standalone public C#/.NET 8 Windows Forms edition.
